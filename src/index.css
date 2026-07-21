@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   ZMARKS — Global Design System
+   ═══════════════════════════════════════════ */
+
+:root {
+  --color-primary: #0B0B0B;
+  --color-secondary: #181818;
+  --color-background: #0B0B0B;
+  --color-accent: #B8B8B8;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #A0A0A0;
+  --color-text-muted: #777777;
+  --color-border: #222222;
+  --color-surface: #141414;
+
+  --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.45, 0, 0.15, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+
+  --nav-height: 72px;
+}
+
+/* ─── Base Reset ─── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* ─── Selection ─── */
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* ─── Component Layer ─── */
+@layer components {
+  .container-luxury {
+    @apply w-full mx-auto px-5 sm:px-8 md:px-12 lg:px-16 xl:px-20;
+    max-width: 1440px;
+  }
+
+  .container-narrow {
+    @apply w-full mx-auto px-5 sm:px-8 md:px-12 lg:px-16;
+    max-width: 1080px;
+  }
+
+  .container-wide {
+    @apply w-full mx-auto px-4 sm:px-6;
+    max-width: 1600px;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply bg-primary text-white;
+    @apply px-8 py-4;
+    @apply text-body-sm font-medium tracking-wider uppercase;
+    @apply transition-all duration-600 ease-luxury;
+    letter-spacing: 0.12em;
+  }
+
+  .btn-primary:hover {
+    @apply bg-secondary;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply bg-transparent text-primary;
+    @apply px-8 py-4;
+    @apply border border-primary;
+    @apply text-body-sm font-medium tracking-wider uppercase;
+    @apply transition-all duration-600 ease-luxury;
+    letter-spacing: 0.12em;
+  }
+
+  .btn-outline:hover {
+    @apply bg-primary text-white;
+    transform: translateY(-2px);
+  }
+
+  /* Image Container */
+  .img-cover {
+    @apply w-full h-full object-cover;
+  }
+
+  /* Section Spacing */
+  .section-padding {
+    padding-top: clamp(5rem, 12vw, 10rem);
+    padding-bottom: clamp(5rem, 12vw, 10rem);
+  }
+
+  .section-padding-sm {
+    padding-top: clamp(3rem, 8vw, 6rem);
+    padding-bottom: clamp(3rem, 8vw, 6rem);
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-full h-px bg-border-light;
+  }
+
+  /* Overlay */
+  .overlay-dark {
+    @apply absolute inset-0 bg-black/40;
+  }
+
+  /* Text gradient reveal mask */
+  .text-mask {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /* Skeleton loading */
+  .skeleton {
+    @apply bg-surface;
+    background: linear-gradient(90deg, #EFEFED 25%, #E5E5E3 50%, #EFEFED 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}
+
+/* ─── Utility Layer ─── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ─── Hero Canvas ─── */
+.hero-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+/* ─── Mobile Bottom Nav ─── */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 72px;
+  }
+}
+
+/* ─── Loading Screen ─── */
+.loading-counter {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Page transitions ─── */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s var(--ease-luxury);
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
